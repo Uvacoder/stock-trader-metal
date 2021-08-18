@@ -21,3 +21,8 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# specified files and directories
+src/actions/**
+src/reducers/**
+/src/store.js

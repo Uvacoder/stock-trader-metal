@@ -19,7 +19,8 @@ function TopBar(props) {
 
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
-    const [latestRates, setLatestRates] = useState([]);
+    const [latestRates, setLatestRates] = useState({/*XAU: '', XAG: '', UDS: '', ILS: '', GBP: '', BTC: ''*/});
+    const [updateTime, setUpdateTime] = useState();
     console.log(latestRates);
     useEffect(() => {
         const url = 'http://api.exchangeratesapi.io/v1/latest' +
@@ -29,9 +30,10 @@ function TopBar(props) {
         axios.get(url)
             .then(response => {
                 console.log(response);
+                setLatestRates(response.data?.rates);
+                setUpdateTime(new Date(response.data?.timestamp * 1000).toLocaleString("en-GB", { timeZone: 'UTC' }));
+                console.log(response.data?.timestamp);
                 setIsLoaded(true);
-                setLatestRates([response.data?.rates]);
-
             },
                 error => {
                     setIsLoaded(true);
@@ -40,8 +42,7 @@ function TopBar(props) {
             )
     }, [])
 
-
-    if (error) {
+ if (error) {
         return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
         return <div>Loading...</div>;
@@ -62,7 +63,7 @@ function TopBar(props) {
                                         className="d-inline-block align-top"
                                     />   GOLD
                                     <br />
-                                    { latestRates[0].XAU.toFixed(6) }
+                                    { latestRates.XAU.toFixed(6) }
                                 </Navbar.Text>
                                 <Nav.Link>
                                     <img
@@ -73,7 +74,7 @@ function TopBar(props) {
                                         className="d-inline-block align-top"
                                     />   SILVER
                                     <br />
-                                    { /*latestRates.XAG.toFixed(6)*/ }
+                                    { latestRates.XAG.toFixed(6) }
                                     </Nav.Link>
                                 <Nav.Link>
                                     <img
@@ -84,7 +85,7 @@ function TopBar(props) {
                                         className="d-inline-block align-top"
                                     />   USD/EUR
                                     <br />
-                                    { /*latestRates.USD.toFixed(6)*/ }
+                                    { latestRates.USD.toFixed(6) }
                                     </Nav.Link>
                                 <Nav.Link>
                                     <img
@@ -95,7 +96,7 @@ function TopBar(props) {
                                         className="d-inline-block align-center"
                                     />   ILS/EUR
                                     <br />
-                                    {/* latestRates.ILS.toFixed(6)*/ }
+                                    { latestRates.ILS.toFixed(6) }
                                     </Nav.Link>
                                 <Nav.Link>
                                     <img
@@ -106,7 +107,7 @@ function TopBar(props) {
                                         className="d-inline-block align-center"
                                     />   GBP/EUR
                                     <br />
-                                    { /*latestRates.GBP.toFixed(6)*/ }
+                                    { latestRates.GBP.toFixed(6) }
                                     </Nav.Link>
                                 <Nav.Link>
                                     <img
@@ -117,12 +118,14 @@ function TopBar(props) {
                                         className="d-inline-block align-center"
                                     />   BTC/EUR
                                     <br />
-                                    { /*latestRates.BTC.toFixed(6)*/ }
+                                    { latestRates.BTC.toFixed(6) }
                                     </Nav.Link>
                             </Nav>
                         </Navbar.Collapse>
                     </Container>
+                                    <Navbar.Text style={{fontSize: 10}}>Updated: {updateTime}</Navbar.Text>
                 </Navbar>
+                
             </div>
         )
     }

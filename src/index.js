@@ -2,16 +2,21 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import About from './components/About';
+import Contact from './components/Contact';
 import reportWebVitals from './reportWebVitals';
-import { Provider } from 'react-redux';
-import store from './store';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
+        <Router>
+      <Switch>
+          <Route path='/contact' component={Contact} />
+          <Route path='/about' component={About} />
+          <Route path='/' component={App} />
+        </Switch>
+      </Router>
   </React.StrictMode>,
   document.getElementById('root')
 );

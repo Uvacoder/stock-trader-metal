@@ -5,174 +5,55 @@ import axios from "axios";
 function Graph() {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
-    const [ratesAug9, setRatesAug9] = useState({});
-    const [dateAug9, setDateAug9] = useState();
-    console.log(ratesAug9);
-    console.log(dateAug9);
-    const [ratesAug10, setRatesAug10] = useState({});
-    const [dateAug10, setDateAug10] = useState();
-    console.log(ratesAug10);
-    console.log(dateAug10);
-    const [ratesAug11, setRatesAug11] = useState({});
-    const [dateAug11, setDateAug11] = useState();
-    console.log(ratesAug11);
-    console.log(dateAug11);
-    const [ratesAug12, setRatesAug12] = useState({});
-    const [dateAug12, setDateAug12] = useState();
-    console.log(ratesAug12);
-    console.log(dateAug12);
-    const [ratesAug13, setRatesAug13] = useState({});
-    const [dateAug13, setDateAug13] = useState();
-    console.log(ratesAug13);
-    console.log(dateAug13);
-    const [ratesAug14, setRatesAug14] = useState({});
-    const [dateAug14, setDateAug14] = useState();
-    console.log(ratesAug14);
-    console.log(dateAug14);
-    const [ratesAug15, setRatesAug15] = useState({});
-    const [dateAug15, setDateAug15] = useState();
-    console.log(ratesAug15);
-    console.log(dateAug15);
+    const days = ['09', '10', '11', '12', '13', '14', '15'];
+    const [ratesByDate, setRatesbyDate] = useState([]);
+    const [rate, setRate] = useState({});
+    const [date, setDate] = useState();
+    const [ratio, setRatio] = useState();
 
+    // get exchange rates from api for 7 dates (days array) and return data for each day (dataByDay array):
     useEffect(() => {
-        const urlAug9 = 'http://api.exchangeratesapi.io/v1/2021-08-09' +
-            '?access_key=' + 'c127b702a402a46651358545fc8ba347' +
-            '&symbols=XAU,XAG';
-        console.log({ url: urlAug9 });
-        axios.get(urlAug9)
-            .then(response => {
-                console.log(response);
-                setRatesAug9(response.data?.rates);
-                setDateAug9(response.data?.date);
-                setIsLoaded(true);
-            },
-                error => {
+        const dataByDay = days.map((day) => {
+            const url = `http://api.exchangeratesapi.io/v1/2021-08-${day}?access_key=07ca71cb0c1303744d0451ad4d008df6&symbols=XAU,XAG`;
+            console.log({ url: url });
+            axios.get(url)
+                .then(response => {
+                    console.log(response);
+                    setRate(response.data?.rates);
+                    console.log(rate);
+                    setRatio(rate.XAG / rate.XAU);
+                    console.log(ratio);
+                    setDate(response.data?.date);
+                    console.log(date);
                     setIsLoaded(true);
-                    setError(error);
-                }
-            )
-            const urlAug10 = 'http://api.exchangeratesapi.io/v1/2021-08-10' +
-            '?access_key=' + 'c127b702a402a46651358545fc8ba347' +
-            '&symbols=XAU,XAG';
-        console.log({ url: urlAug10 });
-        axios.get(urlAug10)
-            .then(response => {
-                console.log(response);
-                setRatesAug10(response.data?.rates);
-                setDateAug10(response.data?.date);
-                setIsLoaded(true);
-            },
-                error => {
-                    setIsLoaded(true);
-                    setError(error);
-                }
-            )
-            const urlAug11 = 'http://api.exchangeratesapi.io/v1/2021-08-11' +
-            '?access_key=' + 'c127b702a402a46651358545fc8ba347' +
-            '&symbols=XAU,XAG';
-        console.log({ url: urlAug11 });
-        axios.get(urlAug11)
-            .then(response => {
-                console.log(response);
-                setRatesAug11(response.data?.rates);
-                setDateAug11(response.data?.date);
-                setIsLoaded(true);
-            },
-                error => {
-                    setIsLoaded(true);
-                    setError(error);
-                }
-            )
-            const urlAug12 = 'http://api.exchangeratesapi.io/v1/2021-08-12' +
-            '?access_key=' + 'c127b702a402a46651358545fc8ba347' +
-            '&symbols=XAU,XAG';
-        console.log({ url: urlAug12 });
-        axios.get(urlAug12)
-            .then(response => {
-                console.log(response);
-                setRatesAug12(response.data?.rates);
-                setDateAug12(response.data?.date);
-                setIsLoaded(true);
-            },
-                error => {
-                    setIsLoaded(true);
-                    setError(error);
-                }
-            )
-            const urlAug13 = 'http://api.exchangeratesapi.io/v1/2021-08-13' +
-            '?access_key=' + 'c127b702a402a46651358545fc8ba347' +
-            '&symbols=XAU,XAG';
-        console.log({ url: urlAug13 });
-        axios.get(urlAug13)
-            .then(response => {
-                console.log(response);
-                setRatesAug13(response.data?.rates);
-                setDateAug13(response.data?.date);
-                setIsLoaded(true);
-            },
-                error => {
-                    setIsLoaded(true);
-                    setError(error);
-                }
-            )
-            const urlAug14 = 'http://api.exchangeratesapi.io/v1/2021-08-14' +
-            '?access_key=' + 'c127b702a402a46651358545fc8ba347' +
-            '&symbols=XAU,XAG';
-        console.log({ url: urlAug14 });
-        axios.get(urlAug14)
-            .then(response => {
-                console.log(response);
-                setRatesAug14(response.data?.rates);
-                setDateAug14(response.data?.date);
-                setIsLoaded(true);
-            },
-                error => {
-                    setIsLoaded(true);
-                    setError(error);
-                }
-            )
-            const urlAug15 = 'http://api.exchangeratesapi.io/v1/2021-08-15' +
-            '?access_key=' + 'c127b702a402a46651358545fc8ba347' +
-            '&symbols=XAU,XAG';
-        console.log({ url: urlAug15 });
-        axios.get(urlAug15)
-            .then(response => {
-                console.log(response);
-                setRatesAug15(response.data?.rates);
-                setDateAug15(response.data?.date);
-                setIsLoaded(true);
-            },
-                error => {
-                    setIsLoaded(true);
-                    setError(error);
-                }
-            )
+                },
+                    error => {
+                        setIsLoaded(true);
+                        setError(error);
+                    }
+                )
+            return {
+                day: day,
+                rate: rate, // returns only the latest setRate value in all array items. is there another way to get the rate?
+                date: date, //returns only the latest setState value in all array items. is there another way to get the date?
+                ratio: ratio //returns only the latest setState value in all array items
+            }
+        })
+        console.log(dataByDay);
+        setRatesbyDate(dataByDay);
+        console.log(ratesByDate);
     }, [])
 
-    const ratioAug9 = ratesAug9.XAG / ratesAug9.XAU;
-    console.log(ratioAug9);
-    const ratioAug10 = ratesAug10.XAG / ratesAug10.XAU;
-    console.log(ratioAug10);
-    const ratioAug11 = ratesAug11.XAG / ratesAug11.XAU;
-    console.log(ratioAug11);
-    const ratioAug12 = ratesAug12.XAG / ratesAug12.XAU;
-    console.log(ratioAug12);
-    const ratioAug13 = ratesAug13.XAG / ratesAug13.XAU;
-    console.log(ratioAug13);
-    const ratioAug14 = ratesAug14.XAG / ratesAug14.XAU;
-    console.log(ratioAug14);
-    const ratioAug15 = ratesAug15.XAG / ratesAug15.XAU;
-    console.log(ratioAug15);
-
+    //returned values would go into data to create the chart:
     const data = {
-        labels: [dateAug9, dateAug10, dateAug11, dateAug12, dateAug13, dateAug14, dateAug15],
+        labels: ['dateAug9', 'dateAug10', 'dateAug11', 'dateAug12', 'dateAug13', 'dateAug14', 'dateAug15'],//to be replaced with dates from ratesByDate
         datasets: [
             {
                 label: 'Gold-Silver Ratio',
-                data: [ratioAug9, ratioAug10, ratioAug11, ratioAug12, ratioAug13, ratioAug14, ratioAug15],
+                data: [70, 75, 73, 71, 70, 70, 82], //to be replaced with ratios from ratesByDate
                 lineTension: 0.3,
                 borderColor: ['rgba(255, 206, 86, 0.8)'],
-                backgroundColor: ['rgba(255, 206, 86, 0.4)' ],
+                backgroundColor: ['rgba(255, 206, 86, 0.4)'],
                 pointBackgroundColor: 'rgba(255, 206, 86, 0.8)',
                 pointBorderColor: 'rgba(255, 206, 86, 0.6)',
                 fill: true
@@ -189,11 +70,19 @@ function Graph() {
                 {
                     tics: {
                         min: 0,
-                        max: 200,
-                        stepSize: 10
+                        max: 80,
+                        stepSize: 5
                     }
                 }
             ]
+        },
+        tooltips: {
+            mode: 'index',
+            intersect: false
+        },
+        hover: {
+            mode: 'index',
+            intersect: false
         }
     }
 
@@ -203,13 +92,14 @@ function Graph() {
         return <div>Loading...</div>;
     } else {
         return (
-        <div>
-            <h3>Gold-Silver Chart</h3>
-            <Line data={data} options={options} />
-        </div>
-    )
-        }
+            <div>
+                <h3>Gold-Silver Chart</h3>
+                <Line data={data} options={options} width={500} />
+            </div>
+        )
+    }
 
 }
+
 
 export default React.memo(Graph);

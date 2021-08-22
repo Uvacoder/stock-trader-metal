@@ -7,50 +7,41 @@ function Graph() {
     const [isLoaded, setIsLoaded] = useState(false);
     const days = ['09', '10', '11', '12', '13', '14', '15'];
     const [ratesByDate, setRatesbyDate] = useState([]);
-    const [rate, setRate] = useState({});
-    const [date, setDate] = useState();
-    const [ratio, setRatio] = useState();
+    console.log(ratesByDate) //returns empty because of async issues inside useEffect
 
     // get exchange rates from api for 7 dates (days array) and return data for each day (dataByDay array):
-    useEffect(() => {
+    useEffect(async () => {
         const dataByDay = days.map((day) => {
-            const url = `http://api.exchangeratesapi.io/v1/2021-08-${day}?access_key=07ca71cb0c1303744d0451ad4d008df6&symbols=XAU,XAG`;
-            console.log({ url: url });
+            const url = `http://api.exchangeratesapi.io/v1/2021-08-${day}?access_key=aeb7c3b01d6a122798a9bead9d4b8ace&symbols=XAU,XAG`;
+            console.log({ url: url })
             axios.get(url)
                 .then(response => {
-                    console.log(response);
-                    setRate(response.data?.rates);
-                    console.log(rate);
-                    setRatio(rate.XAG / rate.XAU);
-                    console.log(ratio);
-                    setDate(response.data?.date);
-                    console.log(date);
-                    setIsLoaded(true);
+                    console.log(response?.data)
+                    setIsLoaded(true)
+                    return response?.data  //doesnt return the response  
                 },
                     error => {
                         setIsLoaded(true);
                         setError(error);
                     }
                 )
-            return {
-                day: day,
-                rate: rate, // returns only the latest setRate value in all array items. is there another way to get the rate?
-                date: date, //returns only the latest setState value in all array items. is there another way to get the date?
-                ratio: ratio //returns only the latest setState value in all array items
-            }
         })
-        console.log(dataByDay);
-        setRatesbyDate(dataByDay);
-        console.log(ratesByDate);
+        const results = await Promise.all(dataByDay);
+        setRatesbyDate(ratesByDate => [...ratesByDate, results])
+        console.log(results) //returns undefined. async issue unsolved
     }, [])
 
+    const ratio = (index) => {
+        return (
+            ratesByDate[index].rates.XAG / ratesByDate[index].rates.XAU)
+    }
     //returned values would go into data to create the chart:
     const data = {
-        labels: ['dateAug9', 'dateAug10', 'dateAug11', 'dateAug12', 'dateAug13', 'dateAug14', 'dateAug15'],//to be replaced with dates from ratesByDate
+        labels: ['ratesByDate[0].date', 'ratesByDate[1].date', 'ratesByDate[2].date', 'ratesByDate[3].date', 'ratesByDate[4].date', 'ratesByDate[5].date', 'ratesByDate[6].date'],//to be replaced with dates from ratesByDate
         datasets: [
             {
                 label: 'Gold-Silver Ratio',
-                data: [70, 75, 73, 71, 70, 70, 82], //to be replaced with ratios from ratesByDate
+                data: ['ratio(0)', 'ratio(1)', 'ratio(2)', 'ratio(3)', 'ratio(4)', 'ratio(5)', 'ratio(6)'], //to be replaced with ratios from ratesByDate
                 lineTension: 0.3,
                 borderColor: ['rgba(255, 206, 86, 0.8)'],
                 backgroundColor: ['rgba(255, 206, 86, 0.4)'],

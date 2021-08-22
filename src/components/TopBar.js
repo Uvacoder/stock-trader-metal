@@ -24,7 +24,7 @@ function TopBar(props) {
     console.log(latestRates);
     useEffect(() => {
         const url = 'http://api.exchangeratesapi.io/v1/latest' +
-            '?access_key=' + '07ca71cb0c1303744d0451ad4d008df6' +
+            '?access_key=' + 'aeb7c3b01d6a122798a9bead9d4b8ace' +
             '&symbols=XAU,XAG,USD,ILS,GBP,BTC';
         console.log({ url: url });
         axios.get(url)

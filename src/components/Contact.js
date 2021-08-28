@@ -1,23 +1,36 @@
 import React, { useState } from "react";
-import { send } from 'emailjs-com';
-import Menu from './Menu';
+import { send, init } from 'emailjs-com'
+import Menu from './Menu'
+import Footer from "./Footer"
+import "../styles/Contact.css"
 
 export default function Contact() {
     const [submitted, setSubmitted] = useState(false);
-    const [fullName, setFullName] = useState('');
-    const [subject, setSubject] = useState('');
-    const [email, setEmail] = useState('');
-    const [message, setMessage] = useState('');
+    const [formInputs, setFormInputs] = useState({
+        fullName: '',
+        subject: '',
+        email: '',
+        message: ''
+    })
+    //const [fullName, setFullName] = useState('');
+    //const [subject, setSubject] = useState('');
+    //const [email, setEmail] = useState('');
+    //const [message, setMessage] = useState('');
     const [emailError, setEmailError] = useState('');
     const [completeFieldsError, setCompleteFieldsError] = useState('');
+    init("user_B05CYKmn6juHchJw25Cwj");
+
+    const handleChange = e => {
+        setFormInputs({...formInputs, [e.target.name]: e.target.value })
+    }
 
     const validate = () => {
         let formError = "";
         let emailError = "";
-        if (!fullName || !subject || !email || !message) {
+        if (!formInputs.fullName || !formInputs.subject || !formInputs.email || !formInputs.message) {
             formError = "Please fill in all fields before submitting";
         }
-        if (!email.includes('@')) {
+        if (!formInputs.email.includes('@') || !formInputs.email.includes('.') ) {
             emailError = "Please type in a valid email address";
         }
         if (formError || emailError) {
@@ -34,11 +47,8 @@ export default function Contact() {
             send(
                 'service_64s8yr9',
                 'template_f6l50t7',
-                fullName,
-                email,
-                subject,
-                message,
-                'orly'
+                formInputs,
+                'user_B05CYKmn6juHchJw25Cwj'
             )
                 .then((response) => {
                     console.log('SUCCESS!', response.status, response.text);
@@ -46,10 +56,10 @@ export default function Contact() {
                 .catch((err) => {
                     console.log('FAILED...', err);
                 });
-            setFullName('');
-            setSubject('');
-            setEmail('');
-            setMessage('');
+            //setFullName('');
+            //setSubject('');
+            //setEmail('');
+            //setMessage('');
             setEmailError('');
             setCompleteFieldsError('');
             setSubmitted(true);
@@ -58,32 +68,54 @@ export default function Contact() {
 
     if (!submitted) {
         return (
-            <div>
-                <Menu />
-                <h3>Contact us</h3>
+            <div className="Contact">
+                <header>
+                    <Menu />
+                </header>
+                <div className="content-container">
+                <h3>Contact Us</h3>
                 <form onSubmit={handleSubmit}>
-                    <label for="fullName">Full Name:</label>
-                    <input id="fullName" type="text" placeholder="Please enter your full name" value={fullName} onChange={e => setFullName(e.target.value)} />
-                    <label for="email" placeholder="Please enter your email address">Email:</label>
-                    <div>{emailError}</div>
-                    <input id="email" type="email" value={email} onChange={e => setEmail(e.target.value)} />
-                    <label for="subject" placeholder="Please enter the subject of your message">Subject:</label>
-                    <input id="subject" type="text" value={subject} onChange={e => setSubject(e.target.value)} />
-                    <label for="message" placeholder="Please enter the your message">Subject:</label>
-                    <input id="message" type="text" value={message} onChange={e => setMessage(e.target.value)} />
-                    <div>{completeFieldsError}</div>
-                    <button type="submit">Submit</button>
+                    <div className="formLine">
+                        <label>Full Name:</label>
+                        <input id="fullName" name="fullName" type="text" placeholder="Please enter name" value={formInputs.fullName} onChange={e => handleChange(e)} />
+                    </div>
+                    <div className="formLine">
+                        <label>Email:</label>
+                        <input id="email" name="email" type="email" placeholder="Please enter email address" value={formInputs.email} onChange={e => handleChange(e)} />
+                    </div>
+                    <div className="errorMsg">{emailError}</div>
+                    <div className="formLine">
+                        <label>Subject:</label>
+                        <input id="subject" name="subject" type="text" placeholder="Please enter message subject" value={formInputs.subject} onChange={e => handleChange(e)} />
+                    </div>
+                    <div className="formLine">
+                        <label>Message:</label>
+                        <textarea id="message" name="message" type="text" placeholder="Please enter the your message" value={formInputs.message} onChange={e => handleChange(e)} rows="6"/>
+                    </div>
+                    <div className="errorMsg">{completeFieldsError}</div>
+                    <button type="submit" className="submitBtn" value="Send">Submit</button>
                 </form>
+                </div>
+                <footer>
+                    <Footer />
+                </footer>
             </div>
         )
     }
     else {
         return (
-            <div>
-                <Menu />
-                <h2>
+            <div className="Contact">
+                <header>
+                    <Menu />
+                </header>
+                <div className="content-container">
+                <h2 className="thankyou">
                     Thank you for contacting us!
                 </h2>
+                </div>
+                <footer>
+                    <Footer />
+                </footer>
             </div>
 
         )

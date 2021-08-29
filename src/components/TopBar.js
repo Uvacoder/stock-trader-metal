@@ -1,31 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { Navbar, Nav, Container } from 'react-bootstrap';
-//import { useDispatch, useSelector } from "react-redux";
-//import loadLatestRates from '../actions/actions';
-import axios from 'axios';
+import React, { useEffect, useState } from "react"
+import { Navbar, Container } from 'react-bootstrap'
+import axios from 'axios'
+import '../styles/TopBar.css'
 
 function TopBar(props) {
-    /*const rates = useSelector(state => state.rates); //getting the state from the reducer
-    console.log({rates});
-
-
-    const dispatch = useDispatch();
-    useEffect(() => {
-        loadLatestRates(rates);
-    }, [rates])
-    const loadLatestRatesNow = useCallback(() => 
-        dispatch(loadLatestRates()), [dispatch]
-    )*/
 
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
-    const [latestRates, setLatestRates] = useState({/*XAU: '', XAG: '', UDS: '', ILS: '', GBP: '', BTC: ''*/});
+    const [latestRates, setLatestRates] = useState({});
     const [updateTime, setUpdateTime] = useState();
     console.log(latestRates);
     useEffect(() => {
-        const url = 'http://api.exchangeratesapi.io/v1/latest' +
-            '?access_key=' + 'd451377251cea73c754f6f86c84d33b2' +
-            '&symbols=XAU,XAG,USD,ILS,GBP,BTC';
+        const url = 'http://api.exchangeratesapi.io/v1/latest?access_key=9e206f87340f24fb2691d006f69fa15c&symbols=XAU,XAG,USD,ILS,GBP,BTC';
         console.log({ url: url });
         axios.get(url)
             .then(response => {
@@ -42,19 +28,18 @@ function TopBar(props) {
             )
     }, [])
 
- if (error) {
+    if (error) {
         return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
         return <div>Loading...</div>;
     } else {
         return (
             <div>
-                <Navbar collapseOnSelect bg="light" variant="light" sticky="top">
-                    <Container>
+                <Navbar collapseOnSelect bg="light" variant="light" sticky="top" className="navbar">
+                    <Container className="item-container">
                         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                         <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-center">
-                            <Nav>
-                                <Navbar.Text>
+                                <Navbar.Text className="bar-items">
                                     <img
                                         alt=""
                                         src="https://img.icons8.com/fluency/50/000000/gold-bars.png"
@@ -63,9 +48,9 @@ function TopBar(props) {
                                         className="d-inline-block align-top"
                                     />   GOLD
                                     <br />
-                                    { latestRates.XAU.toFixed(6) }
+                                    <b>{latestRates.XAU.toFixed(6)}</b>
                                 </Navbar.Text>
-                                <Nav.Link>
+                                <Navbar.Text className="bar-items">
                                     <img
                                         alt=""
                                         src="https://img.icons8.com/dotty/50/000000/gold-bars.png"
@@ -74,9 +59,9 @@ function TopBar(props) {
                                         className="d-inline-block align-top"
                                     />   SILVER
                                     <br />
-                                    { latestRates.XAG.toFixed(6) }
-                                    </Nav.Link>
-                                <Nav.Link>
+                                    <b>{latestRates.XAG.toFixed(6)}</b>
+                                </Navbar.Text>
+                                <Navbar.Text className="bar-items">
                                     <img
                                         alt=""
                                         src="https://img.icons8.com/ios-filled/50/000000/exchange-dollar.png"
@@ -85,9 +70,9 @@ function TopBar(props) {
                                         className="d-inline-block align-top"
                                     />   USD/EUR
                                     <br />
-                                    { latestRates.USD.toFixed(6) }
-                                    </Nav.Link>
-                                <Nav.Link>
+                                    <b>{latestRates.USD.toFixed(6)}</b>
+                                </Navbar.Text>
+                                <Navbar.Text className="bar-items">
                                     <img
                                         alt=""
                                         src="https://img.icons8.com/ios-glyphs/50/000000/shekel.png"
@@ -96,9 +81,9 @@ function TopBar(props) {
                                         className="d-inline-block align-center"
                                     />   ILS/EUR
                                     <br />
-                                    { latestRates.ILS.toFixed(6) }
-                                    </Nav.Link>
-                                <Nav.Link>
+                                    <b>{latestRates.ILS.toFixed(6)}</b>
+                                </Navbar.Text>
+                                <Navbar.Text className="bar-items">
                                     <img
                                         alt=""
                                         src="https://img.icons8.com/ios-filled/50/000000/exchange-pound.png"
@@ -107,9 +92,9 @@ function TopBar(props) {
                                         className="d-inline-block align-center"
                                     />   GBP/EUR
                                     <br />
-                                    { latestRates.GBP.toFixed(6) }
-                                    </Nav.Link>
-                                <Nav.Link>
+                                    <b>{latestRates.GBP.toFixed(6)}</b>
+                                </Navbar.Text>
+                                <Navbar.Text className="bar-items">
                                     <img
                                         alt=""
                                         src="https://img.icons8.com/ios-filled/50/000000/exchange-bitcoin.png"
@@ -118,18 +103,18 @@ function TopBar(props) {
                                         className="d-inline-block align-center"
                                     />   BTC/EUR
                                     <br />
-                                    { latestRates.BTC.toFixed(6) }
-                                    </Nav.Link>
-                            </Nav>
+                                    <b>{latestRates.BTC.toFixed(6)}</b>
+                                </Navbar.Text>
+                            
                         </Navbar.Collapse>
                     </Container>
-                                    <Navbar.Text style={{fontSize: 10}}>Updated: {updateTime}</Navbar.Text>
+                    <Navbar.Text className="update">Updated: {updateTime}</Navbar.Text>
                 </Navbar>
-                
+
             </div>
         )
     }
 
 }
 
-export default React.memo(TopBar);
+export default TopBar;

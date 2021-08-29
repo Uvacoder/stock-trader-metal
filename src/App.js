@@ -2,16 +2,20 @@ import TopBar from './components/TopBar';
 import Menu from './components/Menu';
 import Graph from './components/Graph';
 import Footer from './components/Footer';
-import './App.css';
+import './styles/App.css';
 
 function App() {
   return (
-      <div className="App">
+    <div className="App">
+      <header>
         <TopBar />
         <Menu />
-        <Graph />
-        <footer><Footer /></footer>
+      </header>
+      <div className="content-container">
+      <Graph />
       </div>
+      <footer><Footer /></footer>
+    </div>
   );
 }
 

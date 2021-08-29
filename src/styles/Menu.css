@@ -1,0 +1,33 @@
+.navbar-container .navbar {
+    background-color: rgba(21, 74, 95, 0.7) !important;
+
+}
+
+.navbar-container .logo {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 1.6rem;
+    text-shadow: 5px 2px #103443;
+    vertical-align: middle !important;
+    
+}
+
+.link {
+    color: rgba(255,255,255,1);
+    padding-left: .5rem;
+    padding-right: .5rem;
+}
+
+a:link {
+    text-decoration: none;
+
+  }
+
+  a:visited {
+    text-decoration: none;
+  }
+
+
+  .link:hover {
+    color: rgba(255,255,255,.55) !important;
+  }

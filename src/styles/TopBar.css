@@ -1,0 +1,20 @@
+.navbar-expand {
+    flex-wrap: wrap !important;
+}
+.item-container {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    flex: 1 1 0;
+}
+
+.bar-items {
+    font-size: calc(8px + 0.8vmin);
+    padding: 0 calc(1px + 1vmin) !important ;
+}
+
+.update {
+    font-size: 10px;
+    margin: 0 calc(1px + 1vmin);
+    padding: 0 !important;
+}
+

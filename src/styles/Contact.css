@@ -1,0 +1,108 @@
+.Contact {
+    min-height: 100vh;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    color: #103443;
+    background-color: #f8f9fa;
+
+  }
+
+  .Contact-container {
+    padding-top: 2%;
+    flex: 1;
+  }
+
+  form {
+max-width: 800px;
+align-items: center;
+justify-content: center;
+margin: auto;
+margin-top: 20px;
+}
+
+input, textarea, .submitBtn {
+    border:solid 1px  rgb(21, 74, 95);
+}
+
+input, textarea {
+    padding-left: 1.5%;
+    padding-right: 10px;
+    border-bottom-right-radius: 20px;
+    border-top-right-radius: 20px;
+    border-left: 0px;
+    width: 50%;    
+}
+
+textarea {
+  border-left: solid 1px;
+  border-bottom-left-radius: 20px;
+  vertical-align: top;
+
+}
+
+.formLine {
+  font-size: calc(10px + 0.6vmin)!important;
+  padding-bottom: 15px;
+}
+
+label {
+    padding: 2px 9px;
+    border-bottom-left-radius: 20px;
+    border-top-left-radius: 20px;
+    border-right: 0px;
+    background-color: rgb(21, 74, 95);
+    color: white;
+    width: 95px;
+    text-align: left;
+}
+
+textarea:focus, input:focus{
+    outline: none;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color:lightgray;
+    opacity: 1; /* Firefox */
+  }
+  
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color:lightgray;
+  }
+  
+  ::-ms-input-placeholder { /* Microsoft Edge */
+    color:lightgray;
+  }
+
+  input:placeholder-shown {
+    text-overflow: ellipsis;
+  }
+
+.errorMsg {
+  color: red;
+  text-align: center;
+}
+
+.submitBtn {
+    color: rgb(21, 74, 95);
+    border-radius: 20px;
+    padding-right: 12px;
+    padding-left: 12px;
+    width: fit-content;
+    text-align: center;
+    border-width: 2px;
+    font-size: calc(10px + 1vmin);
+    line-height: 1.7;
+    margin-top: 5px;
+        
+}
+
+.submitBtn:hover {
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.thankyou {
+margin-top: 40%;
+}

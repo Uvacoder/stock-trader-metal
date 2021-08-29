@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { send, init } from 'emailjs-com'
+import React, { useState } from "react"
+import { send } from 'emailjs-com'
 import Menu from './Menu'
 import Footer from "./Footer"
 import "../styles/Contact.css"
@@ -12,13 +12,8 @@ export default function Contact() {
         email: '',
         message: ''
     })
-    //const [fullName, setFullName] = useState('');
-    //const [subject, setSubject] = useState('');
-    //const [email, setEmail] = useState('');
-    //const [message, setMessage] = useState('');
-    const [emailError, setEmailError] = useState('');
-    const [completeFieldsError, setCompleteFieldsError] = useState('');
-    init("user_B05CYKmn6juHchJw25Cwj");
+    const [emailError, setEmailError] = useState('')
+    const [completeFieldsError, setCompleteFieldsError] = useState('')
 
     const handleChange = e => {
         setFormInputs({...formInputs, [e.target.name]: e.target.value })
@@ -56,13 +51,15 @@ export default function Contact() {
                 .catch((err) => {
                     console.log('FAILED...', err);
                 });
-            //setFullName('');
-            //setSubject('');
-            //setEmail('');
-            //setMessage('');
-            setEmailError('');
-            setCompleteFieldsError('');
-            setSubmitted(true);
+                setFormInputs({
+                    fullName: '',
+                    subject: '',
+                    email: '',
+                    message: ''
+                }) 
+            setEmailError('')
+            setCompleteFieldsError('')
+            setSubmitted(true)
         }
     }
 
@@ -72,7 +69,7 @@ export default function Contact() {
                 <header>
                     <Menu />
                 </header>
-                <div className="content-container">
+                <div className="Contact-container">
                 <h3>Contact Us</h3>
                 <form onSubmit={handleSubmit}>
                     <div className="formLine">

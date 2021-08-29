@@ -1,0 +1,17 @@
+
+.App {
+  min-height: 100vh;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  color: white;
+  background-color: #103443;
+}
+
+.content-container {
+  flex: 1;
+}
+
+
+

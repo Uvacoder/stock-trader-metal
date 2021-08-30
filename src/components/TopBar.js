@@ -11,14 +11,14 @@ function TopBar(props) {
     const [updateTime, setUpdateTime] = useState();
     console.log(latestRates);
     useEffect(() => {
-        const url = 'http://api.exchangeratesapi.io/v1/latest?access_key=9e206f87340f24fb2691d006f69fa15c&symbols=XAU,XAG,USD,ILS,GBP,BTC';
+        const url = 'https://api.exchangerate.host/latest?symbols=XAU,XAG,USD,ILS,GBP,BTC';
         console.log({ url: url });
         axios.get(url)
             .then(response => {
                 console.log(response);
                 setLatestRates(response.data?.rates);
-                setUpdateTime(new Date(response.data?.timestamp * 1000).toLocaleString("en-GB", { timeZone: 'UTC' }));
-                console.log(response.data?.timestamp);
+                setUpdateTime(new Date().toLocaleString("en-GB", { timeZone: 'Israel' }));
+                //console.log(response.data?.timestamp);
                 setIsLoaded(true);
             },
                 error => {

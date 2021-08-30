@@ -11,37 +11,35 @@ function Graph() {
 
     // get exchange rates from api for 7 dates (days array) and return data for each day (dataByDay array):
     useEffect(() => {
-        const dataByDay = days.map((day) => {
-            const url = `http://api.exchangeratesapi.io/v1/2021-08-${day}?access_key=9e206f87340f24fb2691d006f69fa15c&symbols=XAU,XAG`;
+        days.map((day) => {
+            const url = `https://api.exchangerate.host/2021-08-${day}&symbols=XAU,XAG`;
             console.log({ url: url })
-            axios.get(url)
+            return (
+                axios.get(url)
                 .then(response => {
                     console.log(response?.data)
                     setIsLoaded(true)
                     setRatesbyDate(ratesByDate => [...ratesByDate, response?.data])
-                    //return response?.data  //doesnt return the response 
                 },
                     error => {
                         setIsLoaded(true)
                         setError(error);
                     }
                 )
+            )
         })
-        //const results = await Promise.all(dataByDay);
-        //setRatesbyDate(ratesByDate => [...ratesByDate, results])
-        //console.log(results) //returns undefined. async issue unsolved
+        // eslint-disable-next-line
     }, [])
 
-    console.log(ratesByDate)
+    //console.log(ratesByDate)
     const sortedRatesByDate = ratesByDate.sort((a, b) => new Date(a.date) - new Date(b.date))
     console.log(sortedRatesByDate);
+
     //to get the gold-silver ratio from RatesbyDate:
     const ratio = (index) => {
         return (
             sortedRatesByDate[index].rates.XAG / sortedRatesByDate[index].rates.XAU)
     }
-
-
 
     if (error) {
         return <div>Error: {error.message}</div>

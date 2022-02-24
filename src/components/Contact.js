@@ -16,7 +16,7 @@ export default function Contact() {
     const [completeFieldsError, setCompleteFieldsError] = useState('')
 
     const handleChange = e => {
-        setFormInputs({...formInputs, [e.target.name]: e.target.value })
+        setFormInputs({ ...formInputs, [e.target.name]: e.target.value })
     }
 
     const validate = () => {
@@ -25,7 +25,7 @@ export default function Contact() {
         if (!formInputs.fullName || !formInputs.subject || !formInputs.email || !formInputs.message) {
             formError = "Please fill in all fields before submitting";
         }
-        if (!formInputs.email.includes('@') || !formInputs.email.includes('.') ) {
+        if (!formInputs.email.includes('@') || !formInputs.email.includes('.')) {
             emailError = "Please type in a valid email address";
         }
         if (formError || emailError) {
@@ -51,12 +51,12 @@ export default function Contact() {
                 .catch((err) => {
                     console.log('FAILED...', err);
                 });
-                setFormInputs({
-                    fullName: '',
-                    subject: '',
-                    email: '',
-                    message: ''
-                }) 
+            setFormInputs({
+                fullName: '',
+                subject: '',
+                email: '',
+                message: ''
+            })
             setEmailError('')
             setCompleteFieldsError('')
             setSubmitted(true)
@@ -70,28 +70,28 @@ export default function Contact() {
                     <Menu />
                 </header>
                 <div className="Contact-container">
-                <h3>Contact Us</h3>
-                <form onSubmit={handleSubmit}>
-                    <div className="formLine">
-                        <label>Full Name:</label>
-                        <input id="fullName" name="fullName" type="text" placeholder="Please enter name" value={formInputs.fullName} onChange={e => handleChange(e)} />
-                    </div>
-                    <div className="formLine">
-                        <label>Email:</label>
-                        <input id="email" name="email" type="email" placeholder="Please enter email address" value={formInputs.email} onChange={e => handleChange(e)} />
-                    </div>
-                    <div className="errorMsg">{emailError}</div>
-                    <div className="formLine">
-                        <label>Subject:</label>
-                        <input id="subject" name="subject" type="text" placeholder="Please enter message subject" value={formInputs.subject} onChange={e => handleChange(e)} />
-                    </div>
-                    <div className="formLine">
-                        <label>Message:</label>
-                        <textarea id="message" name="message" type="text" placeholder="Please enter the your message" value={formInputs.message} onChange={e => handleChange(e)} rows="6"/>
-                    </div>
-                    <div className="errorMsg">{completeFieldsError}</div>
-                    <button type="submit" className="submitBtn" value="Send">Submit</button>
-                </form>
+                    <h3>Contact Us</h3>
+                    <form onSubmit={handleSubmit}>
+                        <div className="formLine">
+                            <label>Full Name:</label>
+                            <input id="fullName" name="fullName" type="text" placeholder="Please enter name" value={formInputs.fullName} onChange={e => handleChange(e)} />
+                        </div>
+                        <div className="formLine">
+                            <label>Email:</label>
+                            <input id="email" name="email" type="email" placeholder="Please enter email address" value={formInputs.email} onChange={e => handleChange(e)} />
+                        </div>
+                        <div className="errorMsg">{emailError}</div>
+                        <div className="formLine">
+                            <label>Subject:</label>
+                            <input id="subject" name="subject" type="text" placeholder="Please enter message subject" value={formInputs.subject} onChange={e => handleChange(e)} />
+                        </div>
+                        <div className="formLine">
+                            <label>Message:</label>
+                            <textarea id="message" name="message" type="text" placeholder="Please enter the your message" value={formInputs.message} onChange={e => handleChange(e)} rows="6" />
+                        </div>
+                        <div className="errorMsg">{completeFieldsError}</div>
+                        <button type="submit" className="submitBtn" value="Send">Submit</button>
+                    </form>
                 </div>
                 <footer>
                     <Footer />
@@ -106,9 +106,9 @@ export default function Contact() {
                     <Menu />
                 </header>
                 <div className="content-container">
-                <h2 className="thankyou">
-                    Thank you for contacting us!
-                </h2>
+                    <h2 className="thankyou">
+                        Thank you for contacting us!
+                    </h2>
                 </div>
                 <footer>
                     <Footer />

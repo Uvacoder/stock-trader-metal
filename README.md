@@ -4,7 +4,7 @@ A single-page web application displaying latest trade rates and chart metal rate
 
 ### View [Deployment](https://ateliereven.github.io/international-trading-app/) 
 
-![Alt text](client/src/img/trading-app.png?raw=true "Metal Trade Home Page")
+![Alt text](src/img/trading-app.png?raw=true "Metal Trade Home Page")
 
 ## Available Scripts
 
